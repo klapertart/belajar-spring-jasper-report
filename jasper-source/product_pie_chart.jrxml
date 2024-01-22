@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a62a398-639a-4d21-b1b6-8f2752e6c830">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[YmVsYWphcl9zcHJpbmdfZGF0YV9qcGEucHJvZHVjdHMgLDE1LDE1LDcyNjRkMjFkLWMxNzgtNDZm
+Yy05OTdlLTYxMzliNTJkYjlhYTs=]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Product Adapter"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT COUNT( name) AS c,
+	name
+FROM belajar_spring_data_jpa.products
+GROUP BY belajar_spring_data_jpa.products.name]]>
+	</queryString>
+	<field name="c" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="c"/>
+		<property name="com.jaspersoft.studio.field.label" value="c"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="products"/>
+	</field>
+	<group name="c">
+		<groupExpression><![CDATA[$F{c}]]></groupExpression>
+	</group>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="100" forecolor="#3366CC" backcolor="#3366CC" uuid="5afc18e3-94ed-4fc5-a04a-cf2d224e81e5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="550" height="64" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="facf629e-baf2-4245-bf84-c2fae49dd48b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produk Pie Chart]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="229" splitType="Stretch">
+			<rectangle>
+				<reportElement x="40" y="10" width="460" height="210" uuid="6657031b-a556-4b59-b610-97e6b8c8bc62"/>
+			</rectangle>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="70" y="24" width="410" height="180" uuid="053e17a9-8db1-4000-b0b9-a78e3514ee67"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{name}]]></keyExpression>
+					<valueExpression><![CDATA[$F{c}]]></valueExpression>
+					<labelExpression><![CDATA[$F{c} + " "]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
