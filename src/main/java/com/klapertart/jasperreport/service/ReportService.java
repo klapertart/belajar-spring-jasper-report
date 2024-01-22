@@ -1,6 +1,9 @@
 package com.klapertart.jasperreport.service;
 
+import com.klapertart.jasperreport.Model.MacroNutrient;
+import com.klapertart.jasperreport.Model.Nutrition;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -11,7 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,11 +73,27 @@ public class ReportService {
         InputStream fileReport = new ClassPathResource("reports/nutrition/nutritionreport.jasper").getInputStream();
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(fileReport);
 
+        List<Nutrition> nutritionList = new ArrayList<>();
+        nutritionList.add(Nutrition.builder().nutritionName("Sodium").total(220).goal(230).metric("mg").build());
+        nutritionList.add(Nutrition.builder().nutritionName("Potassium").total(200).goal(350).metric("mg").build());
+        nutritionList.add(Nutrition.builder().nutritionName("Calcium").total(62).goal(100).metric("%").build());
+        nutritionList.add(Nutrition.builder().nutritionName("Iron").total(38).goal(100).metric("%").build());
+        JRBeanCollectionDataSource nutritionDataSource = new JRBeanCollectionDataSource(nutritionList);
+
+        List<MacroNutrient> macroNutrientList = new ArrayList<>();
+        macroNutrientList.add(MacroNutrient.builder().macroNutrientName("Carbohydrates").macroNutrientValue(48).build());
+        macroNutrientList.add(MacroNutrient.builder().macroNutrientName("Protein").macroNutrientValue(20).build());
+        macroNutrientList.add(MacroNutrient.builder().macroNutrientName("Fat").macroNutrientValue(32).build());
+        JRBeanCollectionDataSource macroNutrientDataSource = new JRBeanCollectionDataSource(macroNutrientList);
+
+
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
         params.put("lastName", "Hamka");
         params.put("dob", "23/01/2023");
         params.put("age", 5);
+        params.put("nutritionDataSet", nutritionDataSource);
+        params.put("macroNutrientDataSet", macroNutrientDataSource);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
