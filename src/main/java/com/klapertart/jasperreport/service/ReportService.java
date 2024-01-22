@@ -1,5 +1,6 @@
 package com.klapertart.jasperreport.service;
 
+import com.klapertart.jasperreport.Model.Food;
 import com.klapertart.jasperreport.Model.MacroNutrient;
 import com.klapertart.jasperreport.Model.Nutrition;
 import net.sf.jasperreports.engine.*;
@@ -71,6 +72,8 @@ public class ReportService {
 
     public JasperPrint nutrition() throws IOException, JRException {
         InputStream fileReport = new ClassPathResource("reports/nutrition/nutritionreport.jasper").getInputStream();
+        InputStream fileSubReport = new ClassPathResource("reports/nutrition/food_nutrition.jasper").getInputStream();
+        JasperReport jasperSubReport = (JasperReport) JRLoader.loadObject(fileSubReport);
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(fileReport);
 
         List<Nutrition> nutritionList = new ArrayList<>();
@@ -86,6 +89,16 @@ public class ReportService {
         macroNutrientList.add(MacroNutrient.builder().macroNutrientName("Fat").macroNutrientValue(32).build());
         JRBeanCollectionDataSource macroNutrientDataSource = new JRBeanCollectionDataSource(macroNutrientList);
 
+        List<Food> foodList = new ArrayList<>();
+        foodList.add(Food.builder().foodName("banana").mealTime("breakfast").fat(0).carbohydrate(28).protein(1).build());
+        foodList.add(Food.builder().foodName("avocado").mealTime("breakfast").fat(22).carbohydrate(13).protein(3).build());
+        foodList.add(Food.builder().foodName("milk").mealTime("breakfast").fat(8).carbohydrate(12).protein(8).build());
+        foodList.add(Food.builder().foodName("chicken").mealTime("lunch").fat(2).carbohydrate(0).protein(26).build());
+        foodList.add(Food.builder().foodName("rice").mealTime("lunch").fat(0).carbohydrate(45).protein(26).build());
+        JRBeanCollectionDataSource foodDataSource = new JRBeanCollectionDataSource(foodList);
+        Map<String, Object> foodParameter = new HashMap<>();
+        foodParameter.put("foodDataSet", foodDataSource);
+
 
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
@@ -94,6 +107,9 @@ public class ReportService {
         params.put("age", 5);
         params.put("nutritionDataSet", nutritionDataSource);
         params.put("macroNutrientDataSet", macroNutrientDataSource);
+        params.put("foodParameter", foodParameter);
+        params.put("foodReport", jasperSubReport);
+
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
