@@ -42,6 +42,7 @@ public class ReportService {
     // PRODUCT REPORT
 
     public JasperPrint product() throws IOException, JRException {
+        // load jasper file that was compiled
         InputStream fileReport = new ClassPathResource("reports/product/product_list.jasper").getInputStream();
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(fileReport);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, getConnection());
@@ -71,10 +72,11 @@ public class ReportService {
     // NUTRITRION REPORT
 
     public JasperPrint nutrition() throws IOException, JRException {
-        InputStream fileReport = new ClassPathResource("reports/nutrition/nutritionreport.jasper").getInputStream();
-        InputStream fileSubReport = new ClassPathResource("reports/nutrition/food_nutrition.jasper").getInputStream();
-        JasperReport jasperSubReport = (JasperReport) JRLoader.loadObject(fileSubReport);
-        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(fileReport);
+        // load raw jasper file
+        InputStream fileReport = new ClassPathResource("reports/nutrition/nutritionreport.jrxml").getInputStream();
+        InputStream fileSubReport = new ClassPathResource("reports/nutrition/food_nutrition.jrxml").getInputStream();
+        JasperReport jasperSubReport = JasperCompileManager.compileReport(fileSubReport);
+        JasperReport jasperReport = JasperCompileManager.compileReport(fileReport);
 
         List<Nutrition> nutritionList = new ArrayList<>();
         nutritionList.add(Nutrition.builder().nutritionName("Sodium").total(220).goal(230).metric("mg").build());
