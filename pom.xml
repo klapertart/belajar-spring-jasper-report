@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.klapertart</groupId>
 	<artifactId>belajar-spring-jasperreport</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>belajar-spring-jasperreport</name>
 	<description>Belajar Jasper Report</description>
 	<properties>
