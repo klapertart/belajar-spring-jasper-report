@@ -54,6 +54,7 @@
 	<parameter name="macroNutrientDataSet" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="foodReport" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="foodParameter" class="java.util.Map"/>
+	<parameter name="foodParameter2" class="java.util.Map"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -117,8 +118,9 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="352" splitType="Stretch">
+		<band height="465" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.layout"/>
 			<rectangle>
 				<reportElement x="298" y="0" width="256" height="230" uuid="e1e260d6-e380-41be-a3a2-f8cd7e7cdaf1"/>
 			</rectangle>
@@ -228,11 +230,23 @@
 					<itemLabel/>
 				</piePlot>
 			</pieChart>
-			<subreport overflowType="Stretch">
-				<reportElement x="0" y="250" width="556" height="70" uuid="1eb76277-124c-4105-92cd-676b52cb8f51">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="300" width="188" height="130" uuid="8e53b3d3-872b-4304-a870-eb3365763498">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<parametersMapExpression><![CDATA[$P{foodParameter}]]></parametersMapExpression>
+				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{foodReport}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="102">
+			<property name="com.jaspersoft.studio.layout"/>
+			<subreport overflowType="Stretch">
+				<reportElement positionType="Float" x="0" y="16" width="195" height="70" uuid="1eb76277-124c-4105-92cd-676b52cb8f51">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<parametersMapExpression><![CDATA[$P{foodParameter2}]]></parametersMapExpression>
 				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{foodReport}]]></subreportExpression>
 			</subreport>

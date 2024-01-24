@@ -104,6 +104,15 @@ public class ReportService {
         foodParameter.put("foodDataSet", foodDataSource);
 
 
+        List<Food> foodList2 = new ArrayList<>();
+        foodList2.add(Food.builder().foodName("Mengkudu").mealTime("breakfast").fat(0).carbohydrate(28).protein(1).build());
+        foodList2.add(Food.builder().foodName("Jeruk").mealTime("breakfast").fat(22).carbohydrate(13).protein(3).build());
+        JRBeanCollectionDataSource foodDataSource2 = new JRBeanCollectionDataSource(foodList2);
+
+        Map<String, Object> foodParameter2 = new HashMap<>();
+        foodParameter2.put("foodDataSet", foodDataSource2);
+
+
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
         params.put("lastName", "Hamka");
@@ -112,6 +121,7 @@ public class ReportService {
         params.put("nutritionDataSet", nutritionDataSource);
         params.put("macroNutrientDataSet", macroNutrientDataSource);
         params.put("foodParameter", foodParameter);
+        params.put("foodParameter2", foodParameter2);
         params.put("foodReport", jasperSRFoodNutrition);
 
 
