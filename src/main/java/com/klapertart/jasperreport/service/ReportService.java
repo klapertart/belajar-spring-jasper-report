@@ -1,8 +1,6 @@
 package com.klapertart.jasperreport.service;
 
-import com.klapertart.jasperreport.Model.Food;
-import com.klapertart.jasperreport.Model.MacroNutrient;
-import com.klapertart.jasperreport.Model.Nutrition;
+import com.klapertart.jasperreport.Model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -79,6 +77,9 @@ public class ReportService {
         InputStream fileFoodNutrition = new ClassPathResource("reports/nutrition/food_nutrition.jrxml").getInputStream();
         JasperReport jasperSRFoodNutrition = JasperCompileManager.compileReport(fileFoodNutrition);
 
+        InputStream fileFoodNutritionAlpha = new ClassPathResource("reports/nutrition/food_nutrition_alpha.jrxml").getInputStream();
+        JasperReport jasperSRFoodNutritionAlpha = JasperCompileManager.compileReport(fileFoodNutritionAlpha);
+
         List<Nutrition> nutritionList = new ArrayList<>();
         nutritionList.add(Nutrition.builder().nutritionName("Sodium").total(220).goal(230).metric("mg").build());
         nutritionList.add(Nutrition.builder().nutritionName("Potassium").total(200).goal(350).metric("mg").build());
@@ -92,6 +93,7 @@ public class ReportService {
         macroNutrientList.add(MacroNutrient.builder().macroNutrientName("Fat").macroNutrientValue(32).build());
         JRBeanCollectionDataSource macroNutrientDataSource = new JRBeanCollectionDataSource(macroNutrientList);
 
+
         List<Food> foodList = new ArrayList<>();
         foodList.add(Food.builder().foodName("banana").mealTime("breakfast").fat(0).carbohydrate(28).protein(1).build());
         foodList.add(Food.builder().foodName("avocado").mealTime("breakfast").fat(22).carbohydrate(13).protein(3).build());
@@ -99,7 +101,6 @@ public class ReportService {
         foodList.add(Food.builder().foodName("chicken").mealTime("lunch").fat(2).carbohydrate(0).protein(26).build());
         foodList.add(Food.builder().foodName("rice").mealTime("lunch").fat(0).carbohydrate(45).protein(26).build());
         JRBeanCollectionDataSource foodDataSource = new JRBeanCollectionDataSource(foodList);
-
         Map<String, Object> foodParameter = new HashMap<>();
         foodParameter.put("foodDataSet", foodDataSource);
 
@@ -108,9 +109,20 @@ public class ReportService {
         foodList2.add(Food.builder().foodName("Mengkudu").mealTime("breakfast").fat(0).carbohydrate(28).protein(1).build());
         foodList2.add(Food.builder().foodName("Jeruk").mealTime("breakfast").fat(22).carbohydrate(13).protein(3).build());
         JRBeanCollectionDataSource foodDataSource2 = new JRBeanCollectionDataSource(foodList2);
-
         Map<String, Object> foodParameter2 = new HashMap<>();
         foodParameter2.put("foodDataSet", foodDataSource2);
+
+
+        List<LineChart> lineChartsLis = new ArrayList<>();
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        JRBeanCollectionDataSource dataSourceLineChart = new JRBeanCollectionDataSource(lineChartsLis);
+        Map<String, Object> foodNutritionAlphaParameter = new HashMap<>();
+        foodNutritionAlphaParameter.put("dataLineChart", dataSourceLineChart);
 
 
         Map<String, Object> params = new HashMap<>();
@@ -123,8 +135,57 @@ public class ReportService {
         params.put("foodParameter", foodParameter);
         params.put("foodParameter2", foodParameter2);
         params.put("foodReport", jasperSRFoodNutrition);
+        params.put("foodNutritionAlphaReport", jasperSRFoodNutritionAlpha);
+        params.put("foodNutritionAlphaParameter", foodNutritionAlphaParameter);
 
 
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        return jasperPrint;
+    }
+
+    public JasperPrint xyLineChart() throws JRException, IOException {
+        // load raw jasper file
+        InputStream fileReport = new ClassPathResource("reports/nutrition/xychart.jrxml").getInputStream();
+        JasperReport jasperReport = JasperCompileManager.compileReport(fileReport);
+
+        List<XYLineChart> xychartLis = new ArrayList<>();
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(1d).yvalue(0d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(2d).yvalue(1d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(3d).yvalue(2d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(4d).yvalue(3d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(5d).yvalue(4d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(1d).yvalue(3d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(2d).yvalue(6d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(3d).yvalue(2d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(4d).yvalue(8d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(5d).yvalue(4d).build());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(xychartLis);
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("dataChart", dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        return jasperPrint;
+    }
+    public JasperPrint lineChart() throws JRException, IOException {
+        // load raw jasper file
+        InputStream fileReport = new ClassPathResource("reports/nutrition/linechart.jrxml").getInputStream();
+        JasperReport jasperReport = JasperCompileManager.compileReport(fileReport);
+
+        List<LineChart> lineChartsLis = new ArrayList<>();
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lineChartsLis);
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("dataLineChart", dataSource);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
         return jasperPrint;

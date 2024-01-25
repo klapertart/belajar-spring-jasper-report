@@ -46,6 +46,14 @@
 		<field name="macroNutrientName" class="java.lang.String"/>
 		<field name="macroNutrientValue" class="java.lang.Integer"/>
 	</subDataset>
+	<subDataset name="lineChartDataset" uuid="bf43b5a0-1d43-44c5-b583-404e1af2c9ae">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="seriesName" class="java.lang.String"/>
+		<field name="xvalue" class="java.lang.Double"/>
+		<field name="yvalue" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="firstName" class="java.lang.String"/>
 	<parameter name="lastName" class="java.lang.String"/>
 	<parameter name="dob" class="java.lang.String"/>
@@ -55,6 +63,8 @@
 	<parameter name="foodReport" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="foodParameter" class="java.util.Map"/>
 	<parameter name="foodParameter2" class="java.util.Map"/>
+	<parameter name="foodNutritionAlphaReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="foodNutritionAlphaParameter" class="java.util.Map"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -118,7 +128,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="465" splitType="Stretch">
+		<band height="637" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.layout"/>
 			<rectangle>
@@ -249,6 +259,14 @@
 				<parametersMapExpression><![CDATA[$P{foodParameter2}]]></parametersMapExpression>
 				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{foodReport}]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="143">
+			<subreport>
+				<reportElement x="0" y="20" width="200" height="100" uuid="1c5007e3-e4b1-4a51-9442-be8ef6d3c7fd"/>
+				<parametersMapExpression><![CDATA[$P{foodNutritionAlphaParameter}]]></parametersMapExpression>
+				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{foodNutritionAlphaReport}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

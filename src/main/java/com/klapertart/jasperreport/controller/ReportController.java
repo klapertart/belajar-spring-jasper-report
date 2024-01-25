@@ -4,10 +4,6 @@ import com.klapertart.jasperreport.service.ReportService;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,10 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.function.ServerRequest;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -78,6 +72,32 @@ public class ReportController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_PDF);
         httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=nutrition.pdf");
+
+        return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/nutrition/xychart")
+    public ResponseEntity<byte[]> generateXYChartReport() throws IOException, JRException {
+        JasperPrint jasperPrint = reportService.xyLineChart();
+
+        byte[] bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_PDF);
+        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=xychart.pdf");
+
+        return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/nutrition/linechart")
+    public ResponseEntity<byte[]> generateLineChartReport() throws IOException, JRException {
+        JasperPrint jasperPrint = reportService.lineChart();
+
+        byte[] bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_PDF);
+        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=linechart.pdf");
 
         return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
     }

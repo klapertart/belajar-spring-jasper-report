@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="xychart" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0342afdf-5230-4a80-929a-153051b7086d">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <subDataset name="tempDataset" uuid="dc9bbc07-71ad-4d5c-b55d-2aff03902052">
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="seriesName" class="java.lang.String"/>
+        <field name="xvalue" class="java.lang.Double"/>
+        <field name="yvalue" class="java.lang.Double"/>
+    </subDataset>
+    <parameter name="dataChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="61" splitType="Stretch"/>
+    </columnHeader>
+    <detail>
+        <band height="250" splitType="Stretch">
+            <xyLineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="10" y="10" width="200" height="200" uuid="9d14b2d4-b2ea-4180-aea4-cb4a1f97df44"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <xyDataset>
+                    <dataset>
+                        <datasetRun subDataset="tempDataset" uuid="e87dbefe-ae44-44c7-9903-28ea546024f2">
+                            <dataSourceExpression><![CDATA[$P{dataChart}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <xySeries>
+                        <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                        <xValueExpression><![CDATA[$F{xvalue}]]></xValueExpression>
+                        <yValueExpression><![CDATA[$F{yvalue}]]></yValueExpression>
+                    </xySeries>
+                </xyDataset>
+                <linePlot>
+                    <plot/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </xyLineChart>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>
