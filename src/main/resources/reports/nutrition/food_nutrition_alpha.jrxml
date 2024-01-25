@@ -19,7 +19,16 @@
 		<field name="value" class="java.lang.Double"/>
 		<field name="category" class="java.lang.String"/>
 	</subDataset>
+	<subDataset name="xyLineDataset" uuid="9af17423-fc50-49dc-8913-48178bdcd757">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="seriesName" class="java.lang.String"/>
+		<field name="xvalue" class="java.lang.Double"/>
+		<field name="yvalue" class="java.lang.Double"/>
+	</subDataset>
 	<parameter name="dataLineChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="dataXYLineChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -29,7 +38,9 @@
 	<title>
 		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="215" height="30" forecolor="#FFFFFF" backcolor="#6666FF" uuid="d6394d0f-8fc9-4be5-8a70-1836040fd0cd"/>
+				<reportElement mode="Opaque" x="0" y="0" width="556" height="30" forecolor="#FFFFFF" backcolor="#6666FF" uuid="d6394d0f-8fc9-4be5-8a70-1836040fd0cd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
@@ -41,7 +52,7 @@
 		<band height="282" splitType="Stretch">
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="10" width="565" height="200" uuid="f7496ed3-3361-43e4-8d3d-2ff2a67309d7"/>
+					<reportElement x="0" y="10" width="230" height="200" uuid="f7496ed3-3361-43e4-8d3d-2ff2a67309d7"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -56,6 +67,7 @@
 						<seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{category}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{value}]]></valueExpression>
+						<labelExpression><![CDATA[$F{value}+""]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
 				<linePlot>
@@ -68,6 +80,37 @@
 					</valueAxisFormat>
 				</linePlot>
 			</lineChart>
+			<xyLineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="310" y="10" width="230" height="200" uuid="9f7c9af8-308e-461a-96a1-3a42be237441">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<xyDataset>
+					<dataset>
+						<datasetRun subDataset="xyLineDataset" uuid="cfd5e27a-54aa-4d6a-b0bd-f6de402bf5c7">
+							<dataSourceExpression><![CDATA[$P{dataXYLineChart}]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<xySeries>
+						<seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{xvalue}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{yvalue}]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</linePlot>
+			</xyLineChart>
 		</band>
 	</detail>
 </jasperReport>

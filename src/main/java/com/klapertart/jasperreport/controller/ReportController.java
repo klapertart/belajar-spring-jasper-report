@@ -102,6 +102,19 @@ public class ReportController {
         return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
     }
 
+    @GetMapping(value = "/nutrition/barchart")
+    public ResponseEntity<byte[]> generateBarChartReport() throws IOException, JRException {
+        JasperPrint jasperPrint = reportService.barChart();
+
+        byte[] bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_PDF);
+        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=barchart.pdf");
+
+        return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
+    }
+
 
 
 }

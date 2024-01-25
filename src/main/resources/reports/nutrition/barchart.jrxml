@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="barchart" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b700fad-101b-4e17-8412-4f459bdfff40">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <subDataset name="tempDataset" uuid="e79dc783-7fc6-4767-80c4-1f7f8b581bb6">
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="seriesName" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+        <field name="category" class="java.lang.String"/>
+    </subDataset>
+    <parameter name="dataBarChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="dataStackBarChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="556" height="30" forecolor="#FFFFFF" backcolor="#6666FF" uuid="a9794b62-9409-4051-8081-6f01ee59c6b1">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font size="18"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Food Nutrition Bar]]></text>
+            </staticText>
+        </band>
+    </title>
+    <detail>
+        <band height="352" splitType="Stretch">
+            <barChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="0" width="250" height="200" uuid="bd57ee86-bd89-4a2b-b7c7-a980e69d7b20">
+                        <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    </reportElement>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="tempDataset" uuid="c7579d49-6b5f-48ec-9a46-5893e1418b3a">
+                            <dataSourceExpression><![CDATA[$P{dataBarChart}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </barPlot>
+            </barChart>
+            <stackedBarChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="304" y="0" width="250" height="200" uuid="dff345f3-8b73-403b-b4fd-e343602db04f">
+                        <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    </reportElement>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="tempDataset" uuid="205d455a-87ca-424f-95e3-b20e2adc5a23">
+                            <dataSourceExpression><![CDATA[$P{dataStackBarChart}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </barPlot>
+            </stackedBarChart>
+        </band>
+    </detail>
+</jasperReport>

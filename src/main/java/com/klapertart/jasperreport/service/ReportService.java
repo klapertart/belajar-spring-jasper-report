@@ -121,8 +121,23 @@ public class ReportService {
         lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
         lineChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
         JRBeanCollectionDataSource dataSourceLineChart = new JRBeanCollectionDataSource(lineChartsLis);
+
+        List<XYLineChart> xychartLis = new ArrayList<>();
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(1d).yvalue(0d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(2d).yvalue(1d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(3d).yvalue(2d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(4d).yvalue(3d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("protein").xvalue(5d).yvalue(4d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(1d).yvalue(3d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(2d).yvalue(6d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(3d).yvalue(2d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(4d).yvalue(8d).build());
+        xychartLis.add(XYLineChart.builder().seriesName("fat").xvalue(5d).yvalue(4d).build());
+        JRBeanCollectionDataSource dataSourceXYLineChart = new JRBeanCollectionDataSource(xychartLis);
+
         Map<String, Object> foodNutritionAlphaParameter = new HashMap<>();
         foodNutritionAlphaParameter.put("dataLineChart", dataSourceLineChart);
+        foodNutritionAlphaParameter.put("dataXYLineChart", dataSourceXYLineChart);
 
 
         Map<String, Object> params = new HashMap<>();
@@ -186,6 +201,43 @@ public class ReportService {
         Map<String, Object> params = new HashMap<>();
 
         params.put("dataLineChart", dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+        return jasperPrint;
+    }
+    public JasperPrint barChart() throws JRException, IOException {
+        // load raw jasper file
+        InputStream fileReport = new ClassPathResource("reports/nutrition/barchart.jrxml").getInputStream();
+        JasperReport jasperReport = JasperCompileManager.compileReport(fileReport);
+
+        List<LineChart> barChartsLis = new ArrayList<>();
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        JRBeanCollectionDataSource dataBarSource = new JRBeanCollectionDataSource(barChartsLis);
+
+        List<LineChart> stackBarChartsLis = new ArrayList<>();
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        JRBeanCollectionDataSource dataStackBarSource = new JRBeanCollectionDataSource(stackBarChartsLis);
+
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("dataBarChart", dataBarSource);
+        params.put("dataStackBarChart", dataStackBarSource);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
         return jasperPrint;
