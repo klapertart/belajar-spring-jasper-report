@@ -40,16 +40,18 @@
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="556" height="30" forecolor="#FFFFFF" backcolor="#6666FF" uuid="d6394d0f-8fc9-4be5-8a70-1836040fd0cd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="18"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Food Nutrition Alpha]]></text>
+				<text><![CDATA[Food Nutrition Line]]></text>
 			</staticText>
 		</band>
 	</title>
 	<detail>
-		<band height="282" splitType="Stretch">
+		<band height="241" splitType="Stretch">
 			<lineChart>
 				<chart evaluationTime="Report">
 					<reportElement x="0" y="10" width="230" height="200" uuid="f7496ed3-3361-43e4-8d3d-2ff2a67309d7"/>

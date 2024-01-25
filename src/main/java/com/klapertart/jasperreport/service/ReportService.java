@@ -80,6 +80,9 @@ public class ReportService {
         InputStream fileFoodNutritionAlpha = new ClassPathResource("reports/nutrition/food_nutrition_alpha.jrxml").getInputStream();
         JasperReport jasperSRFoodNutritionAlpha = JasperCompileManager.compileReport(fileFoodNutritionAlpha);
 
+        InputStream fileFoodNutritionBar = new ClassPathResource("reports/nutrition/barchart.jrxml").getInputStream();
+        JasperReport jasperSRFoodNutritionBar = JasperCompileManager.compileReport(fileFoodNutritionBar);
+
         List<Nutrition> nutritionList = new ArrayList<>();
         nutritionList.add(Nutrition.builder().nutritionName("Sodium").total(220).goal(230).metric("mg").build());
         nutritionList.add(Nutrition.builder().nutritionName("Potassium").total(200).goal(350).metric("mg").build());
@@ -140,19 +143,52 @@ public class ReportService {
         foodNutritionAlphaParameter.put("dataXYLineChart", dataSourceXYLineChart);
 
 
+        List<LineChart> barChartsLis = new ArrayList<>();
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
+        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        JRBeanCollectionDataSource dataBarSource = new JRBeanCollectionDataSource(barChartsLis);
+
+        List<LineChart> stackBarChartsLis = new ArrayList<>();
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        JRBeanCollectionDataSource dataStackBarSource = new JRBeanCollectionDataSource(stackBarChartsLis);
+
+        Map<String, Object> foodNutritionBarParameter = new HashMap<>();
+        foodNutritionBarParameter.put("dataBarChart", dataBarSource);
+        foodNutritionBarParameter.put("dataStackBarChart", dataStackBarSource);
+
+
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
         params.put("lastName", "Hamka");
         params.put("dob", "23/01/2023");
         params.put("age", 5);
+
         params.put("nutritionDataSet", nutritionDataSource);
         params.put("macroNutrientDataSet", macroNutrientDataSource);
-        params.put("foodParameter", foodParameter);
-        params.put("foodParameter2", foodParameter2);
+
         params.put("foodReport", jasperSRFoodNutrition);
+        params.put("foodParameter", foodParameter);
+
         params.put("foodNutritionAlphaReport", jasperSRFoodNutritionAlpha);
         params.put("foodNutritionAlphaParameter", foodNutritionAlphaParameter);
 
+        params.put("foodNutritionBarReport", jasperSRFoodNutritionBar);
+        params.put("foodNutritionBarParameter", foodNutritionBarParameter);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 

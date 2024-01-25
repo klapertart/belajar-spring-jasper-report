@@ -67,10 +67,25 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
+	<title>
+		<band height="50">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="10" width="556" height="30" forecolor="#FFFFFF" backcolor="#6666FF" uuid="87c8b7ae-23db-4398-8666-85cc4b393aab">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="18"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Food Nutrition List]]></text>
+			</staticText>
+		</band>
+	</title>
 	<detail>
-		<band height="233" splitType="Stretch">
+		<band height="153" splitType="Stretch">
 			<componentElement>
-				<reportElement x="0" y="0" width="556" height="200" uuid="faa90e10-579e-4570-97e9-abfa56ec6428">
+				<reportElement x="0" y="0" width="556" height="140" uuid="faa90e10-579e-4570-97e9-abfa56ec6428">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
