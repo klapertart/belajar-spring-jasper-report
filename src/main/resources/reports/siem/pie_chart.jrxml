@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pie_chart" pageWidth="595" pageHeight="842" columnWidth="571" leftMargin="0" rightMargin="24" topMargin="0" bottomMargin="0" uuid="e7a1e9e9-37a2-4f23-a597-c379e122691f">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <subDataset name="ChartDataset" uuid="323b8ed2-263a-4f1f-84dd-93821e148973">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="label" class="java.lang.String"/>
+        <field name="value" class="java.lang.Integer"/>
+    </subDataset>
+    <parameter name="chartParameter" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="title" class="java.lang.String"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="40" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <textField>
+                <reportElement x="10" y="0" width="500" height="30" uuid="e348119d-171c-4296-99c4-cfdc72beb8e9">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="30" width="570" height="1" forecolor="#EDEBEB" uuid="c1b07d58-45d2-404e-acff-821e5cb906cd">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <graphicElement>
+                    <pen lineColor="#EDEBEB"/>
+                </graphicElement>
+            </line>
+        </band>
+    </title>
+    <detail>
+        <band height="200" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <pieChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="135" y="10" width="300" height="180" uuid="f65e92d1-95cd-4adc-aaaf-91b4d9c9be00">
+                        <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                        <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    </reportElement>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend position="Right"/>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                        <datasetRun subDataset="ChartDataset" uuid="dd7b2c57-c8fd-4e03-8918-270f4e4137a4">
+                            <dataSourceExpression><![CDATA[$P{chartParameter}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{label}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    <labelExpression><![CDATA[$F{value} + "%"]]></labelExpression>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+        </band>
+    </detail>
+</jasperReport>

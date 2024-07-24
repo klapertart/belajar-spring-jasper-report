@@ -1,6 +1,7 @@
 package com.klapertart.jasperreport.controller;
 
 import com.klapertart.jasperreport.service.ReportService;
+import com.klapertart.jasperreport.service.SiemService;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -27,6 +28,8 @@ import java.io.IOException;
 public class ReportController {
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private SiemService siemService;
 
     @Autowired
     private HttpServletResponse response;
@@ -111,6 +114,19 @@ public class ReportController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_PDF);
         httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=barchart.pdf");
+
+        return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
+    }
+    @GetMapping(value = "/siem/ipreputation")
+    public ResponseEntity<byte[]> generateIpReputationPieChart() throws IOException, JRException {
+        JasperPrint jasperPrint = siemService.publicIpReputation();
+
+        byte[] bytes = JasperExportManager.exportReportToPdf(jasperPrint);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.setContentType(MediaType.APPLICATION_PDF);
+        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=ipreputation.pdf");
 
         return new ResponseEntity<>(bytes,httpHeaders,HttpStatus.OK);
     }
