@@ -1,9 +1,21 @@
 package com.klapertart.jasperreport.service;
 
 import com.klapertart.jasperreport.Model.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.base.JRBaseChart;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.tabulator.Table;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -24,6 +36,7 @@ import java.util.Map;
  */
 
 @Service
+@Slf4j
 public class ReportService {
     @Autowired
     private DataSource dataSource;
@@ -172,6 +185,18 @@ public class ReportService {
         foodNutritionBarParameter.put("dataStackBarChart", dataStackBarSource);
 
 
+        List<TableModel> tableModels = new ArrayList<>();
+        tableModels.add(TableModel.builder()
+                .colTitle1("Nama")
+                .colTitle2("Umur")
+                .colTitle3("Alamat")
+                .colValue1("Hamka")
+                .colValue2("5")
+                .colValue3("Bandung").build());
+
+        JRBeanCollectionDataSource tableDataSource = new JRBeanCollectionDataSource(tableModels);
+
+
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
         params.put("lastName", "Hamka");
@@ -189,6 +214,11 @@ public class ReportService {
 
         params.put("foodNutritionBarReport", jasperSRFoodNutritionBar);
         params.put("foodNutritionBarParameter", foodNutritionBarParameter);
+
+        params.put("tableParams", tableDataSource);
+        params.put("showCol1", true);
+        params.put("showCol2", false);
+        params.put("showCol3", true);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
@@ -277,6 +307,20 @@ public class ReportService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
         return jasperPrint;
+    }
+
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TableModel{
+        private String colTitle1;
+        private String colTitle2;
+        private String colTitle3;
+        private String colValue1;
+        private String colValue2;
+        private String colValue3;
     }
 
 }
