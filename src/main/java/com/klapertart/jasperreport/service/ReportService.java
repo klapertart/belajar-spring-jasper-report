@@ -197,6 +197,59 @@ public class ReportService {
         JRBeanCollectionDataSource tableDataSource = new JRBeanCollectionDataSource(tableModels);
 
 
+        List<LineChart> lineChartSiemList = new ArrayList<>();
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-0").value(2d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-1").value(2d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-2").value(4d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-3").value(4d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-4").value(3d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Lower").category("vit-5").value(2d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-0").value(3d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-1").value(3d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-2").value(8d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-3").value(8d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-4").value(4d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Upper").category("vit-5").value(5d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-0").value(5d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-1").value(4d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-2").value(5d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-3").value(6d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-4").value(8d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Anomaly").category("vit-5").value(8d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Normal").category("vit-2").value(5d).build());
+        lineChartSiemList.add(LineChart.builder().seriesName("Normal").category("vit-3").value(6d).build());
+        JRBeanCollectionDataSource dsLineChartSiem = new JRBeanCollectionDataSource(lineChartSiemList);
+
+
+        List<LineChart> lineMultiChartList = new ArrayList<>();
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-0").value(2d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-1").value(2d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-2").value(4d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-3").value(4d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-4").value(3d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Lower").category("vit-5").value(2d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-0").value(3d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-1").value(3d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-2").value(8d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-3").value(8d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-4").value(4d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Upper").category("vit-5").value(5d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-0").value(5d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-1").value(4d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-2").value(5d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-3").value(6d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-4").value(8d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-5").value(8d).build());
+
+
+        List<LineChart> anomalyLineChartList = new ArrayList<>();
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-0").value(5d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-1").value(4d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-2").value(0d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-3").value(0d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-4").value(8d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-5").value(8d).build());
+
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
         params.put("lastName", "Hamka");
@@ -219,6 +272,11 @@ public class ReportService {
         params.put("showCol1", true);
         params.put("showCol2", false);
         params.put("showCol3", true);
+
+        params.put("lineChartSiemParams", dsLineChartSiem);
+
+        params.put("lineMultiChartParams", lineMultiChartList);
+        params.put("dotMultiChartParams", anomalyLineChartList);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
@@ -322,5 +380,6 @@ public class ReportService {
         private String colValue2;
         private String colValue3;
     }
+
 
 }

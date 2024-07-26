@@ -92,6 +92,33 @@
         <field name="colValue2" class="java.lang.String"/>
         <field name="colValue3" class="java.lang.String"/>
     </subDataset>
+    <subDataset name="lineChartSiemDataset" uuid="9b56d4c7-8c32-4afc-a630-425fdeb61c53">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="seriesName" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="lineMultiChartDataset" uuid="9c3f71b0-91fe-4517-a85f-6e8a6bcfb5cc">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="seriesName" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="dotMultiChartDataset" uuid="0db76d09-f883-449c-8ecb-8a76a302ad44">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="seriesName" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
     <parameter name="firstName" class="java.lang.String"/>
     <parameter name="lastName" class="java.lang.String"/>
     <parameter name="dob" class="java.lang.String"/>
@@ -108,6 +135,9 @@
     <parameter name="showCol1" class="java.lang.Boolean"/>
     <parameter name="showCol2" class="java.lang.Boolean"/>
     <parameter name="showCol3" class="java.lang.Boolean"/>
+    <parameter name="lineChartSiemParams" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="lineMultiChartParams" class="java.util.List"/>
+    <parameter name="dotMultiChartParams" class="java.util.List"/>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -464,6 +494,127 @@
                     </jr:column>
                 </jr:table>
             </componentElement>
+        </band>
+        <band height="240">
+            <lineChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="10" width="544" height="200" uuid="3153771e-3fe5-46d4-a2b5-721666029378">
+                        <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    </reportElement>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="lineChartSiemDataset" uuid="2e1ac7a3-86a6-4e84-ba6e-66fc5b388424">
+                            <dataSourceExpression><![CDATA[$P{lineChartSiemParams}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <linePlot>
+                    <plot>
+                        <seriesColor seriesOrder="0" color="#6B6B6B"/>
+                        <seriesColor seriesOrder="1" color="#A8A8A8"/>
+                        <seriesColor seriesOrder="2" color="#F17060"/>
+                        <seriesColor seriesOrder="3" color="#73A9FF"/>
+                    </plot>
+                    <categoryAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                    </valueAxisFormat>
+                </linePlot>
+            </lineChart>
+        </band>
+        <band height="250">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+            <multiAxisChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="0" y="0" width="467" height="160" uuid="2ef02f19-d4e4-4d1b-9e84-00cad8648b3e"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <multiAxisPlot>
+                    <plot/>
+                    <axis>
+                        <lineChart>
+                            <chart evaluationTime="Report">
+                                <reportElement x="0" y="0" width="0" height="0" backcolor="#FFFFFF" uuid="3c269635-06f5-41f3-9cab-279785bb9af5"/>
+                                <chartTitle color="#000000"/>
+                                <chartSubtitle color="#000000"/>
+                                <chartLegend textColor="#000000" backgroundColor="#FFFFFF"/>
+                            </chart>
+                            <categoryDataset>
+                                <dataset>
+                                    <datasetRun subDataset="lineMultiChartDataset" uuid="ad22720f-566d-42f6-89f8-e2c83a8e5261">
+                                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{dotMultiChartParams})]]></dataSourceExpression>
+                                    </datasetRun>
+                                </dataset>
+                                <categorySeries>
+                                    <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                                    <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                                </categorySeries>
+                            </categoryDataset>
+                            <linePlot isShowLines="false">
+                                <plot>
+                                    <seriesColor seriesOrder="0" color="#9E4055"/>
+                                </plot>
+                                <categoryAxisFormat>
+                                    <axisFormat labelColor="#000000" tickLabelColor="#000000" verticalTickLabels="false" axisLineColor="#000000"/>
+                                </categoryAxisFormat>
+                                <valueAxisFormat>
+                                    <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                                </valueAxisFormat>
+                            </linePlot>
+                        </lineChart>
+                    </axis>
+                    <axis>
+                        <lineChart>
+                            <chart evaluationTime="Report">
+                                <reportElement x="0" y="0" width="0" height="0" backcolor="#FFFFFF" uuid="edeb39e9-aa57-44a5-9103-7c1e1911905f"/>
+                                <chartTitle color="#000000"/>
+                                <chartSubtitle color="#000000"/>
+                                <chartLegend textColor="#000000" backgroundColor="#FFFFFF"/>
+                            </chart>
+                            <categoryDataset>
+                                <dataset>
+                                    <datasetRun subDataset="lineMultiChartDataset" uuid="8bdc360a-4f31-4ad7-a025-91e0358a415b">
+                                        <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{lineMultiChartParams})]]></dataSourceExpression>
+                                    </datasetRun>
+                                </dataset>
+                                <categorySeries>
+                                    <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                                    <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                                </categorySeries>
+                            </categoryDataset>
+                            <linePlot>
+                                <plot>
+                                    <seriesColor seriesOrder="0" color="#B3B3B3"/>
+                                    <seriesColor seriesOrder="1" color="#707070"/>
+                                    <seriesColor seriesOrder="2" color="#5ACBED"/>
+                                </plot>
+                                <categoryAxisFormat>
+                                    <axisFormat labelColor="#000000" tickLabelColor="#000000" verticalTickLabels="false" axisLineColor="#000000"/>
+                                </categoryAxisFormat>
+                                <valueAxisFormat>
+                                    <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+                                </valueAxisFormat>
+                            </linePlot>
+                        </lineChart>
+                    </axis>
+                </multiAxisPlot>
+            </multiAxisChart>
         </band>
     </detail>
     <pageFooter>
