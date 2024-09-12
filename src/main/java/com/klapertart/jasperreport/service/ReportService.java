@@ -7,15 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.base.JRBaseChart;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.tabulator.Table;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -93,7 +86,7 @@ public class ReportService {
         InputStream fileFoodNutritionAlpha = new ClassPathResource("reports/nutrition/food_nutrition_alpha.jrxml").getInputStream();
         JasperReport jasperSRFoodNutritionAlpha = JasperCompileManager.compileReport(fileFoodNutritionAlpha);
 
-        InputStream fileFoodNutritionBar = new ClassPathResource("reports/nutrition/barchart.jrxml").getInputStream();
+        InputStream fileFoodNutritionBar = new ClassPathResource("reports/nutrition/barchart.jrxml.backup").getInputStream();
         JasperReport jasperSRFoodNutritionBar = JasperCompileManager.compileReport(fileFoodNutritionBar);
 
         List<Nutrition> nutritionList = new ArrayList<>();
@@ -238,8 +231,8 @@ public class ReportService {
         lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-1").value(4d).build());
         lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-2").value(5d).build());
         lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-3").value(6d).build());
-        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-4").value(8d).build());
-        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-5").value(8d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-4").value(6d).build());
+        lineMultiChartList.add(LineChart.builder().seriesName("Normal").category("vit-5").value(6d).build());
 
 
         List<LineChart> anomalyLineChartList = new ArrayList<>();
@@ -247,8 +240,9 @@ public class ReportService {
         anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-1").value(4d).build());
         anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-2").value(0d).build());
         anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-3").value(0d).build());
-        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-4").value(8d).build());
-        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-5").value(8d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-4").value(6d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("Anomaly").category("vit-5").value(6d).build());
+        anomalyLineChartList.add(LineChart.builder().seriesName("").category("vit-0").value(8d).build());
 
         Map<String, Object> params = new HashMap<>();
         params.put("firstName", "Abdillah");
@@ -334,34 +328,35 @@ public class ReportService {
         InputStream fileReport = new ClassPathResource("reports/nutrition/barchart.jrxml").getInputStream();
         JasperReport jasperReport = JasperCompileManager.compileReport(fileReport);
 
-        List<LineChart> barChartsLis = new ArrayList<>();
-        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
-        barChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        List<BarChart> barChartsLis = new ArrayList<>();
+        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("protein").value(2).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("fat").value(4).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("carbohydrate").value(4).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("protein").value(1).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("fat").value(6).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("carbohydrate").value(10).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("protein").value(3).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("fat").value(7).build());
+//        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("carbohydrate").value(9).build());
         JRBeanCollectionDataSource dataBarSource = new JRBeanCollectionDataSource(barChartsLis);
 
         List<LineChart> stackBarChartsLis = new ArrayList<>();
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(2d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("protein").value(3d).build());
         stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("fat").value(4d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(4d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(1d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(6d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 1").category("carbohydrate").value(5d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("protein").value(10d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("fat").value(7d).build());
         stackBarChartsLis.add(LineChart.builder().seriesName("Day 2").category("carbohydrate").value(10d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(3d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(7d).build());
-        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(9d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("protein").value(7d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("fat").value(11d).build());
+        stackBarChartsLis.add(LineChart.builder().seriesName("Day 3").category("carbohydrate").value(13d).build());
         JRBeanCollectionDataSource dataStackBarSource = new JRBeanCollectionDataSource(stackBarChartsLis);
 
         Map<String, Object> params = new HashMap<>();
 
         params.put("dataBarChart", dataBarSource);
         params.put("dataStackBarChart", dataStackBarSource);
+        params.put("axisTickInterval", "3");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
 
         return jasperPrint;
@@ -380,6 +375,5 @@ public class ReportService {
         private String colValue2;
         private String colValue3;
     }
-
 
 }

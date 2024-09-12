@@ -16,20 +16,11 @@
             <![CDATA[]]>
         </queryString>
         <field name="seriesName" class="java.lang.String"/>
-        <field name="value" class="java.lang.Integer"/>
-        <field name="category" class="java.lang.String"/>
-    </subDataset>
-    <subDataset name="tempDatasetStackedBar" uuid="4a4a60b9-4338-46f1-bc83-72638427dca9">
-        <queryString>
-            <![CDATA[]]>
-        </queryString>
-        <field name="seriesName" class="java.lang.String"/>
         <field name="value" class="java.lang.Double"/>
         <field name="category" class="java.lang.String"/>
     </subDataset>
     <parameter name="dataBarChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
     <parameter name="dataStackBarChart" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-    <parameter name="axisTickInterval" class="java.lang.String"/>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -57,9 +48,8 @@
         <band height="239" splitType="Stretch">
             <barChart>
                 <chart evaluationTime="Report">
-                    <reportElement x="0" y="0" width="250" height="200" uuid="f522302c-d2a6-49c1-92c8-46cb50a0210b">
+                    <reportElement x="0" y="0" width="250" height="200" uuid="bd57ee86-bd89-4a2b-b7c7-a980e69d7b20">
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
-                        <propertyExpression name="net.sf.jasperreports.chart.range.axis.tick.interval"><![CDATA[$P{axisTickInterval}]]></propertyExpression>
                     </reportElement>
                     <chartTitle/>
                     <chartSubtitle/>
@@ -67,7 +57,7 @@
                 </chart>
                 <categoryDataset>
                     <dataset>
-                        <datasetRun subDataset="tempDataset" uuid="2abfa2e2-77a6-4afe-92c5-de09d9cc6c0c">
+                        <datasetRun subDataset="tempDataset" uuid="c7579d49-6b5f-48ec-9a46-5893e1418b3a">
                             <dataSourceExpression><![CDATA[$P{dataBarChart}]]></dataSourceExpression>
                         </datasetRun>
                     </dataset>
@@ -77,14 +67,14 @@
                         <valueExpression><![CDATA[$F{value}]]></valueExpression>
                     </categorySeries>
                 </categoryDataset>
-                <barPlot isShowLabels="true" isShowTickLabels="true" isShowTickMarks="true">
-                    <plot orientation="Horizontal"/>
+                <barPlot>
+                    <plot/>
                     <itemLabel/>
                     <categoryAxisFormat>
                         <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
                     </categoryAxisFormat>
                     <valueAxisFormat>
-                        <axisFormat labelColor="#000000" tickLabelColor="#000000" tickLabelMask="#,##0" axisLineColor="#000000"/>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
                     </valueAxisFormat>
                 </barPlot>
             </barChart>
@@ -99,7 +89,7 @@
                 </chart>
                 <categoryDataset>
                     <dataset>
-                        <datasetRun subDataset="tempDatasetStackedBar" uuid="4f2a5e35-3ff9-486e-854c-5aac28541928">
+                        <datasetRun subDataset="tempDataset" uuid="205d455a-87ca-424f-95e3-b20e2adc5a23">
                             <dataSourceExpression><![CDATA[$P{dataStackBarChart}]]></dataSourceExpression>
                         </datasetRun>
                     </dataset>
@@ -110,13 +100,13 @@
                     </categorySeries>
                 </categoryDataset>
                 <barPlot>
-                    <plot orientation="Horizontal"/>
+                    <plot/>
                     <itemLabel/>
                     <categoryAxisFormat>
                         <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
                     </categoryAxisFormat>
                     <valueAxisFormat>
-                        <axisFormat labelColor="#000000" tickLabelColor="#000000" tickLabelMask="#,##0" axisLineColor="#000000"/>
+                        <axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
                     </valueAxisFormat>
                 </barPlot>
             </stackedBarChart>

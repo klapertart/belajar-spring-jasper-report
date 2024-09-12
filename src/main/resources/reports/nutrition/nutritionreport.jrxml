@@ -560,7 +560,7 @@
                                     </datasetRun>
                                 </dataset>
                                 <categorySeries>
-                                    <seriesExpression><![CDATA[$F{seriesName}]]></seriesExpression>
+                                    <seriesExpression><![CDATA[new Boolean(false)]]></seriesExpression>
                                     <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
                                     <valueExpression><![CDATA[$F{value}]]></valueExpression>
                                 </categorySeries>
