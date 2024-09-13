@@ -330,14 +330,14 @@ public class ReportService {
 
         List<BarChart> barChartsLis = new ArrayList<>();
         barChartsLis.add(BarChart.builder().seriesName("Day 1").category("protein").value(2).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("fat").value(4).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("carbohydrate").value(4).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("fat").value(4).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 1").category("carbohydrate").value(4).build());
         barChartsLis.add(BarChart.builder().seriesName("Day 2").category("protein").value(1).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("fat").value(6).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("carbohydrate").value(10).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("fat").value(6).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 2").category("carbohydrate").value(10).build());
         barChartsLis.add(BarChart.builder().seriesName("Day 3").category("protein").value(3).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("fat").value(7).build());
-//        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("carbohydrate").value(9).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("fat").value(7).build());
+        barChartsLis.add(BarChart.builder().seriesName("Day 3").category("carbohydrate").value(9).build());
         JRBeanCollectionDataSource dataBarSource = new JRBeanCollectionDataSource(barChartsLis);
 
         List<LineChart> stackBarChartsLis = new ArrayList<>();
